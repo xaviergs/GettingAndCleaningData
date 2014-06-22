@@ -53,13 +53,6 @@ The general notes related to the script:
 *       A cleaning step to make variable names more readable by
 *          Setting the "mean" and "std" to Capital Letters (camel script)
 *          Removing dots "." in the names
-namVar <- names(test_train_set)
-namVar <- gsub("mean","Mean",namVar)
-namVar <- gsub("std","Std",namVar)
-namVar <- gsub("\\.\\.\\.","",namVar)
-namVar <- gsub("\\.\\.","",namVar)
-namVar <- gsub("\\.","",namVar)
-names(test_train_set) <- namVar
 
 ###     STEP 06
 *       Prepares a WIDE tidy dataset containing the average of each variable
@@ -81,3 +74,10 @@ names(test_train_set) <- namVar
 *       Exports the data sets required in the assignment description
 *       Exports the train + test data set
 *       Removing the useless columns
+*       And avoiding row names and quotes
+
+###     STEP 09
+*       Exports the second data set required in the assignment description
+*       Exports the averages data set for std an mean
+*      Removing the useless columns
+*       And avoiding row names and quotes

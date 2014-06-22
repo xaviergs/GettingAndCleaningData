@@ -41,7 +41,7 @@ activities <- read.table("activity_labels.txt", col.names=c("ActivityId","Activi
 
 ##      Load the subjects (TEST set)
 subj_test <- read.table("./test/subject_test.txt",col.names=c("SubjectId"))
-subj_test$SubjectID <- as.numeric(subj_test$SubjectID)
+subj_test$SubjectId <- as.numeric(subj_test$SubjectId)
 
 ##       adds a "test" factor variable to be able to distinguish between sets once
 ##       they will be merged
@@ -51,11 +51,11 @@ head(subj_test,5)
 
 ##       Load the activities (TEST set)
 activ_test <- read.table("./test/y_test.txt",col.names=c("ActivityId"))
-head(activ_test);head(activ_test);unique(activ_test$activity)
+head(activ_test);unique(activ_test$ActivityId)
 
 ##       merge the activities with the name metadata 
 activ_test <- merge (activities,activ_test, by.x="ActivityId", by.y="ActivityId")
-names(activ_test);head(activ_test);unique(activ_test$activity)
+names(activ_test);head(activ_test);unique(activ_test$Activity)
 ##      bind subjects and activities
 subj_test <- cbind(subj_test,activ_test)
 names(subj_test);head(subj_test)
@@ -85,7 +85,7 @@ obs_test <- cbind(subj_test,obs_test)
 
 ##      Load the subjects (TRAIN set)
 subj_train <- read.table("./train/subject_train.txt",col.names=c("SubjectId"))
-subj_train$SubjectID <- as.numeric(subj_train$SubjectID)
+subj_train$SubjectId <- as.numeric(subj_train$SubjectId)
 
 ##      adds a "train" factor variable to be able to distinguish between sets once
 ##      they will be merged
@@ -165,7 +165,7 @@ names(test_train_set) <- namVar
 ##      removing the useless columns for the tidy outcome
 uless = c(which(names(test_train_set) == "ActivityId"),
           which(names(test_train_set) == "SetId"),
-          which(names(test_train_set) == "Set"))
+          which(names(test_train_set) == "SetName"))
 wide_tidy_means <- test_train_set[,-uless]
 wide_tidy_means <- aggregate(. ~ SubjectId + Activity, 
                              FUN = mean, 
@@ -179,7 +179,7 @@ head(wide_tidy_means)
 
 ##      An exploratory way to check the 40 mean observations summarizing by subjects and activities
 summaryBy(SubjectId ~ Activity, data=wide_tidy_means, FUN=function(x) c(count=length(x),min=min(x),max=max(x),mean=mean(x)))
-summaryBy(Activity ~ SubjectId, data=wide_tidy_means, FUN=function(x) c(count=length(x),min=min(x),max=max(x))
+summaryBy(Activity ~ SubjectId, data=wide_tidy_means, FUN=function(x) c(count=length(x),min=min(x),max=max(x)))
 summaryBy(tBodyAccMeanX ~ SubjectId + Activity, data=wide_tidy_means, FUN=function(x) c(cmin=min(x),max=max(x)))
 
 #################################################################
@@ -196,7 +196,7 @@ head(long_tidy_means)
 
 #################################################################
 ##      STEP 08
-##      Exports the data sets required in the assignment description
+##      Exports the first data sets required in the assignment description
 
 ##      Exports the train + test data set
 ##      Removing the useless columns
@@ -205,6 +205,14 @@ write.table(test_train_set,file =".\\test_train_set.txt"
           ,sep=" ",col.names=colnames(test_train_set)
           ,row.names=FALSE, quote=FALSE)
 
+#################################################################
+##      STEP 09
+##      Exports the second data set required in the assignment description
 
-
+##      Exports the averages data set for std an mean
+##      Removing the useless columns
+head(wide_tidy_means)
+write.table(wide_tidy_means,file =".\\wide_tidy_means_set.txt"
+            ,sep=" ",col.names=colnames(wide_tidy_means)
+            ,row.names=FALSE, quote=FALSE)
 
