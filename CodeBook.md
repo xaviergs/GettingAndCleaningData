@@ -8,12 +8,12 @@ The R script that produces the outcome is called run_analysis.R and basically pe
 
 ### Activities
 The recorded activities are coded as:
-1	LAYING
-2	SITTING
-3	STANDING
-4	WALKING
-5	WALKING_DOWNSTAIRS
-6	WALKING_UPSTAIRS
+* 1	LAYING
+* 2	SITTING
+* 3	STANDING
+* 4	WALKING
+* 5	WALKING_DOWNSTAIRS
+*6	WALKING_UPSTAIRS
 
 ### Subjects
 The subjects recorded in both test and train sets are numbered from 1 to 30.
